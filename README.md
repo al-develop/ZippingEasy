@@ -3,16 +3,23 @@ Tool to create zip files from folders in the deepest location of a folder system
 
 Imagine you have a specific folder structure:
 
-Root
---- Sub 1
-    --- Sub Sub 1.1
-    --- Sub Sub 1.2
-      --- Sub Sub Sub 1.1.1
-    --- Sub Sub 1.3
---- Sub 2
-    --- Sub Sub 2.1
+-Root
+
+    - Sub 1
+    
+        - Sub Sub 1.1
         
-        ...
+        - Sub Sub 1.2
+        
+            - Sub Sub Sub 1.1.1
+            
+        - Sub Sub 1.3
+        
+    - Sub 2
+    
+        - Sub Sub 2.1
+        
+        ... and so on 
 
 And now you want to create zip archives from the deepest subfolders in this structure - let's say to create a backup of everything.
 So, instead of going down to the deepest location and create the archives manually, you can tell this program what your Root folder 
