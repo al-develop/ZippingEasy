@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="ZippingEasy.UI.Views.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ZippingEasy.UI.Views"
+             mc:Ignorable="d"
+             Height="114"
+             Width="372">
+    <StackPanel Orientation="Vertical">
+        <Grid VerticalAlignment="Top"
+              Margin="10,2,10,0"
+              Height="25">
+            <TextBlock Text="Developed by: Al Pankratz"
+                       Margin="0,2,0,0"
+                       Height="23" />
+            <TextBox Text="al.pankratz@hotmail.de"
+                     Height="23"
+                     Margin="145,1,0,1"
+                     VerticalAlignment="Center" />
+        </Grid>
+
+        <Grid VerticalAlignment="Top"
+              Margin="10,2,10,0"
+              Height="25">
+            <TextBlock Text="Icons from"
+                       Margin="0,2,0,0"
+                       Height="23" />
+            <TextBox Text="https://icons8.com/color-icons"
+                     Height="23"
+                     Margin="145,1,0,1"
+                     VerticalAlignment="Center" />
+        </Grid>
+        <Grid VerticalAlignment="Top"
+              Margin="10,2,10,0"
+              Height="25">
+            <TextBlock Text="Compression SDK: "
+                       Margin="0,2,0,0"
+                       Height="23" />
+            <TextBox Text="https://sevenzipsharp.codeplex.com/"
+                     Height="23"
+                     Margin="145,1,0,1"
+                     VerticalAlignment="Center" />
+        </Grid>
+        <Button VerticalAlignment="Top"
+                Margin="156,2,10,0"
+                Command="{Binding CloseCommand}"
+                Height="23">
+            <Button.Content>
+                <Grid>
+                    <Image x:Name="___ZippingEasy_UI_component_Cancel_16px_png"
+                           Height="16"
+                           Source="/Resources/Icons/Cancel_16px.png"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Width="16"
+                           Stretch="Fill" />
+                    <TextBlock Text="Close"
+                               Margin="20,0,0,0" />
+                </Grid>
+            </Button.Content>
+        </Button>
+    </StackPanel>
+</UserControl>
