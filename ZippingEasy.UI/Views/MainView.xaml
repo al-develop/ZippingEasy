@@ -118,12 +118,13 @@
             <Grid>
                 <xctk:WatermarkComboBox Watermark="Compression Level"
                                         ItemsSource="{Binding Source={StaticResource CompressionLevels}}"
+                                        SelectedItem="{Binding CompressionLevel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         Height="23"
                                         Margin="36,10,0,0"
                                         VerticalAlignment="Top"
                                         HorizontalAlignment="Left"
                                         Width="253" />
-                <Image x:Name="___ZippingEasy_UI_component_Database_16px_png"
+                <Image x:Name="imgDataSource"
                        Margin="10,13,0,0"
                        Source="/Resources/Icons/Database_16px.png"
                        Stretch="Fill"
