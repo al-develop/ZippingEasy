@@ -5,8 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ZippingEasy.UI.Views"
              mc:Ignorable="d"
-             Height="114"
-             Width="372">
+             Height="115"
+             Width="380"
+             MinHeight="115"
+             MinWidth="380"
+             MaxHeight="115"
+             MaxWidth="380">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="IsReadOnly"
+                    Value="True" />            
+        </Style>
+    </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <Grid VerticalAlignment="Top"
               Margin="10,2,10,0"
@@ -15,7 +25,7 @@
                        Margin="0,2,0,0"
                        Height="23" />
             <TextBox Text="al.pankratz@hotmail.de"
-                     Height="23"
+                     Height="23"                     
                      Margin="145,1,0,1"
                      VerticalAlignment="Center" />
         </Grid>

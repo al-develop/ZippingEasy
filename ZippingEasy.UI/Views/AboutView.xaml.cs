@@ -23,6 +23,6 @@ namespace ZippingEasy.UI.Views
         public AboutView()
         {
             InitializeComponent();
-        }
+        }        
     }
 }

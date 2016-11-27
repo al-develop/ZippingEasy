@@ -13,7 +13,7 @@ namespace ZippingEasy.UI.Views
     {
         public AboutViewModel()
         {
-            this.DisplayName = "About";
+            this.DisplayName = "About";            
             CloseCommand = new DelegateCommand(Close);
         }
 

@@ -27,6 +27,7 @@ namespace ZippingEasy.UI.Views
         private string _destinationPath;
         private CompressionLevel _compressionLevel;
         private ObservableCollection<SelectedFile> _selectedFolders;
+        private bool _isBusy;
 
         #region Properties
         public ICommand SelectSourceCommand { get; set; }
@@ -34,7 +35,15 @@ namespace ZippingEasy.UI.Views
         public ICommand BeginCompressionCommand { get; set; }
         public ICommand AboutCommand { get; set; }
 
-
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                NotifyOfPropertyChange(() => IsBusy);
+            }
+        }
         public ObservableCollection<SelectedFile> SelectedFolders
         {
             get { return _selectedFolders; }
@@ -69,7 +78,7 @@ namespace ZippingEasy.UI.Views
             {
                 _sourcePath = value;
                 this.NotifyOfPropertyChange(() => SourcePath);
-                if(!String.IsNullOrEmpty(this.SourcePath))
+                if (!String.IsNullOrEmpty(this.SourcePath))
                     LoadSelectedPaths();
             }
         }
@@ -135,25 +144,50 @@ namespace ZippingEasy.UI.Views
                 this.SourcePath = selectedPath;
         }
 
-        private void LoadSelectedPaths()
+        private async Task LoadSelectedPaths()
         {
-            if (this.SelectedFolders == null)
-                this.SelectedFolders = new ObservableCollection<SelectedFile>();
-
-            if (String.IsNullOrEmpty(this.SourcePath))
+            var selectedFolders = new ObservableCollection<SelectedFile>();
+            await Task.Run(() =>
             {
-                LogManager.GetLogger(typeof (MainViewModel)).Warn("couldn't load subfolders because the source path was null or empty");
-            }
-
-            IEnumerable<string> subfolders = this._logic.GetSubfolders(this.SourcePath);
-            foreach (var folder in subfolders)
-            {
-                this.SelectedFolders.Add(new SelectedFile()
+                try
                 {
-                    FilePath = folder,
-                    ZipProgress = 0
-                });
+                    IsBusy = true;
+
+                    if (String.IsNullOrEmpty(this.SourcePath))
+                    {
+                        LogManager.GetLogger(typeof(MainViewModel)).Warn("couldn't load subfolders because the source path was null or empty");
+                    }
+
+                    IEnumerable<string> subfolders = this._logic.GetSubfolders(this.SourcePath);
+                    int id = 1;
+                    foreach (var folder in subfolders)
+                    {
+                        selectedFolders.Add(new SelectedFile()
+                        {
+                            ID = id,
+                            FilePath = folder,
+                            ZipProgress = 0
+                        });
+
+                        id++;
+                    }
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+            });
+
+            if (this.SelectedFolders == null)
+            {
+                this.SelectedFolders = new ObservableCollection<SelectedFile>(selectedFolders);
             }
+            else
+            {
+                this.SelectedFolders.Clear();
+                this.SelectedFolders.AddRange(selectedFolders);
+            }
+
         }
 
         #endregion Methods
