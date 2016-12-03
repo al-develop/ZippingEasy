@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ZippingEasy.UI.Views"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:sevenZip="clr-namespace:SevenZip;assembly=SevenZipSharp"
+             xmlns:compression="clr-namespace:System.IO.Compression;assembly=System"
              mc:Ignorable="d"
              MinHeight="500"
              MinWidth="800"
@@ -17,7 +17,7 @@
                             ObjectType="{x:Type sys:Enum}"
                             x:Key="CompressionLevels">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="sevenZip:CompressionLevel" />
+                <x:Type TypeName="compression:CompressionLevel" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 

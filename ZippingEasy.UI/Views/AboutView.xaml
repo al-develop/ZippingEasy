@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ZippingEasy.UI.Views"
              mc:Ignorable="d"
-             Height="115"
-             Width="380"
-             MinHeight="115"
-             MinWidth="380"
-             MaxHeight="115"
-             MaxWidth="380">
+             Height="180"
+             Width="490"
+             MinHeight="180"
+             MinWidth="490"
+             MaxHeight="180"
+             MaxWidth="490">
     <UserControl.Resources>
         <Style TargetType="TextBox">
             <Setter Property="IsReadOnly"
-                    Value="True" />            
+                    Value="True" />
         </Style>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
@@ -25,7 +25,7 @@
                        Margin="0,2,0,0"
                        Height="23" />
             <TextBox Text="al.pankratz@hotmail.de"
-                     Height="23"                     
+                     Height="23"
                      Margin="145,1,0,1"
                      VerticalAlignment="Center" />
         </Grid>
@@ -33,7 +33,19 @@
         <Grid VerticalAlignment="Top"
               Margin="10,2,10,0"
               Height="25">
-            <TextBlock Text="Icons from"
+            <TextBlock Text="Github:"
+                       Margin="0,2,0,0"
+                       Height="23" />
+            <TextBox Text="https://github.com/al-develop/ZippingEasy"
+                     Height="23"
+                     Margin="145,1,0,1"
+                     VerticalAlignment="Center" />
+        </Grid>
+
+        <Grid VerticalAlignment="Top"
+              Margin="10,2,10,0"
+              Height="25">
+            <TextBlock Text="Icons from:"
                        Margin="0,2,0,0"
                        Height="23" />
             <TextBox Text="https://icons8.com/color-icons"
@@ -41,19 +53,30 @@
                      Margin="145,1,0,1"
                      VerticalAlignment="Center" />
         </Grid>
+        
         <Grid VerticalAlignment="Top"
               Margin="10,2,10,0"
               Height="25">
             <TextBlock Text="Compression SDK: "
                        Margin="0,2,0,0"
                        Height="23" />
-            <TextBox Text="https://sevenzipsharp.codeplex.com/"
+            <TextBox Text="System.IO.Compression"
                      Height="23"
                      Margin="145,1,0,1"
                      VerticalAlignment="Center" />
         </Grid>
+
+        <Grid VerticalAlignment="Top"
+              Margin="10,2,10,0"
+              Height="25">            
+            <TextBox Text="System.IO.Compression.FileSystem"
+                     Height="23"
+                     Margin="145,1,0,1"
+                     VerticalAlignment="Center" />
+        </Grid>
+
         <Button VerticalAlignment="Top"
-                Margin="156,2,10,0"
+                Margin="156,8,10,0"
                 Command="{Binding CloseCommand}"
                 Height="23">
             <Button.Content>

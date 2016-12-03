@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Caliburn.Micro;
 using DevExpress.Mvvm;
-using SevenZip;
 using ZippingEasy.Common.Entity;
 using ZippingEasy.Common.Utils;
 using ZippingEasy.Logic;
 using Action = System.Action;
 using LogManager = log4net.LogManager;
+using System.IO.Compression;
 
 namespace ZippingEasy.UI.Views
 {
@@ -79,7 +79,9 @@ namespace ZippingEasy.UI.Views
                 _sourcePath = value;
                 this.NotifyOfPropertyChange(() => SourcePath);
                 if (!String.IsNullOrEmpty(this.SourcePath))
+#pragma warning disable CS4014 // Disable warning on this position, because it's not possible to await this method
                     LoadSelectedPaths();
+#pragma warning restore CS4014 
             }
         }
         #endregion Properties

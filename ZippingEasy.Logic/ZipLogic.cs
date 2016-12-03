@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SevenZip;
 using ZippingEasy.Common.Utils;
 using log4net;
+using System.IO.Compression;
 
 namespace ZippingEasy.Logic
 {
@@ -18,53 +18,39 @@ namespace ZippingEasy.Logic
 
         public async Task<Result> Zip(string sourcePath, string destinationPath, CompressionLevel compressionLevel)
         {
-            if (!Directory.Exists(sourcePath))
+            await Task.Run(() =>
             {
-                return new Result("directory does not exist", ResultStatus.Warning);
-            }
+                try
+                {
+                    if (!Directory.Exists(sourcePath))
+                    {
+                        return new Result("directory does not exist", ResultStatus.Warning);
+                    }
 
-            // set settings for zipping
-            StringBuilder libraryPathBuilder = new StringBuilder();
-            libraryPathBuilder.Append(AppDomain.CurrentDomain.BaseDirectory);
-            if (Environment.Is64BitOperatingSystem)
-            {
-                libraryPathBuilder.Append("x64\\7z.dll");
-            }
-            else
-            {
-                libraryPathBuilder.Append("x86\\7z.dll");
-            }
+                    // zipping uses System.IO.Compression.FileSystem.ZipFile
+                    IList<string> subfolders = this.GetSubfolders(sourcePath).ToList();
+                    foreach (var srcFolder in subfolders)
+                    {
+                        string sourceFolderName = srcFolder.Split('\\').Last();
+                        string destFolder = $"{destinationPath}\\{sourceFolderName}.zip";
+                        ZipFile.CreateFromDirectory(srcFolder, destFolder, compressionLevel, false);
+                    }
 
-            if (!File.Exists(libraryPathBuilder.ToString()))
-            {
-                LogManager.GetLogger(typeof(ZipLogic)).Error("7z.dll was not found");
-                return new Result("7z.dll was not found", ResultStatus.Error);
-            }
-            SevenZipCompressor.SetLibraryPath(libraryPathBuilder.ToString());
-            SevenZipCompressor compressor = SetCompressionSettings(compressionLevel);
+                    return new Result("zipping successfull", ResultStatus.Success);
+                }
+                catch (Exception ex)
+                {
+                    StringBuilder errorMessage = new StringBuilder();
+                    errorMessage.AppendLine("Error occured while zipping progress");
+                    errorMessage.AppendLine(ex.Message);
+                    LogManager.GetLogger(typeof(ZipLogic)).Error(errorMessage.ToString());
+                    return new Result(errorMessage.ToString(), ResultStatus.Error);
+                }
+            });
 
-            // zipping            
-            IList<string> subfolders = this.GetSubfolders(sourcePath).ToList();
-            foreach(var srcFolder in subfolders)
-            {
-                string sourceFolderName = srcFolder.Split('\\').Last();
-                string destFolder = $"{destinationPath}\\{sourceFolderName}.zip";
-                compressor.CompressDirectory(srcFolder, destFolder);
-            }
-            //File.Move($"{sourcePath}\\{sourceFolderName}.zip", $"{destinationPath}\\{sourceFolderName}.zip");
-
-            return null;
+            return new Result("zipping successfull", ResultStatus.Success);
         }
 
-        private SevenZipCompressor SetCompressionSettings(CompressionLevel compressionLevel)
-        {
-            return new SevenZipCompressor()
-            {                
-                CompressionLevel = compressionLevel,
-                CompressionMethod = CompressionMethod.Default,
-                CompressionMode = CompressionMode.Create
-            };
-        }
 
         public IEnumerable<string> GetSubfolders(string sourcePath)
         {

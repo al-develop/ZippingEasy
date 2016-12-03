@@ -21,7 +21,6 @@ namespace ZippingEasy.UI
     public class Bootstrapper : BootstrapperBase
     {
         private CompositionContainer _container;
-        private SimpleContainer _simpleContainer;
         public Bootstrapper()
         {
             this.Initialize();
